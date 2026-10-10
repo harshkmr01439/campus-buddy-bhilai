@@ -21,7 +21,7 @@ export function SignInCta({ action }: { action: string }) {
   );
 }
 
-export function AuthGate({ children, message }: { children: ReactNode; message: string }) {
+export function AuthGate({ children, message }: { children?: ReactNode; message: string }) {
   const { signedIn, loading } = useAuth();
   if (loading)
     return <Loader2 className="mx-auto mt-10 h-6 w-6 animate-spin text-muted-foreground" />;
