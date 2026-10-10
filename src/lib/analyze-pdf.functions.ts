@@ -93,7 +93,7 @@ export const analyzePdf = createServerFn({ method: "POST" })
                 "Rules: documentTitle = the document's own title or a short descriptive one. " +
                 "overallSummary = 2-3 sentence plain-language summary of the whole document. " +
                 "items = one entry per distinct announcement, event, subject/period, or instruction. " +
-                "date = when something happens (ISO date or readable string), deadline = last date to act, null if none. " +
+                "date = when something happens, written in a friendly readable form like 'Mon 20 Oct 2026, 10:00 AM' (never ISO format), deadline = last date to act in the same readable form, null if none. " +
                 "actionItems = concrete things a reader must do. tags = 1-3 short lowercase labels like 'exam', 'fee', 'holiday'.",
             },
           ],
