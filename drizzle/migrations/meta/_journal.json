@@ -15,6 +15,13 @@
       "when": 1791624390828,
       "tag": "0001_pyqs_and_club_leaders",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791624407106,
+      "tag": "0002_pyq_files_read",
+      "breakpoints": true
     }
   ]
 }
