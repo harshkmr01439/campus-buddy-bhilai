@@ -82,12 +82,15 @@ export function PostForm({
   table,
   fields,
   buttonLabel,
+  requiresAuth = false,
 }: {
   table: TableName;
   fields: Field[];
   buttonLabel: string;
+  requiresAuth?: boolean;
 }) {
   const qc = useQueryClient();
+  const { signedIn, loading: authLoading } = useAuth();
   const initial = Object.fromEntries(
     fields.map((f) => [f.name, f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]),
   );
