@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Badge, BoardList, Card, PageIntro, PostForm, timeAgo, useBoardRows } from "@/components/CommunityBoard";
+import { AuthGate, Badge, BoardList, Card, PageIntro, PostForm, timeAgo, useBoardRows } from "@/components/CommunityBoard";
+import { useAuth } from "@/hooks/useAuth";
 
 const CATS = ["Mess", "Hostel", "Academics", "Wi-Fi", "Transport", "General"];
 
@@ -18,13 +19,20 @@ export const Route = createFileRoute("/complaints")({
 });
 
 function Page() {
-  const q = useBoardRows("complaints");
+  const { signedIn, loading } = useAuth();
+  const q = useBoardRows("complaints", "created_at", false, signedIn);
+  if (loading) return null;
+  if (!signedIn)
+    return (
+      <AuthGate message="Complaints and queries are visible to signed-in students only. Sign in to read them or raise one." />
+    );
   return (
     <>
-      <PageIntro title="Complaints & Queries" subtitle="Something wrong, or have a question? Post it — open to everyone.">
+      <PageIntro title="Complaints & Queries" subtitle="Something wrong, or have a question? Post it — visible to signed-in students.">
         <PostForm
           table="complaints"
           buttonLabel="Raise complaint / query"
+          requiresAuth
           fields={[
             { name: "kind", label: "Type", type: "select", options: [{ value: "complaint", label: "Complaint" }, { value: "query", label: "Query" }] },
             { name: "category", label: "Category", type: "select", options: CATS.map((c) => ({ value: c, label: c })) },

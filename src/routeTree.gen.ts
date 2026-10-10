@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ClubsRouteImport } from './routes/clubs'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as LostFoundRouteImport } from './routes/lost-found'
@@ -19,6 +20,11 @@ import { Route as NewcomersRouteImport } from './routes/newcomers'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClubsRoute = ClubsRouteImport.update({
@@ -49,6 +55,7 @@ const NewcomersRoute = NewcomersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/clubs': typeof ClubsRoute
   '/complaints': typeof ComplaintsRoute
   '/lost-found': typeof LostFoundRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/clubs': typeof ClubsRoute
   '/complaints': typeof ComplaintsRoute
   '/lost-found': typeof LostFoundRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/clubs': typeof ClubsRoute
   '/complaints': typeof ComplaintsRoute
   '/lost-found': typeof LostFoundRoute
@@ -75,12 +84,26 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/clubs' | '/complaints' | '/lost-found' | '/mess' | '/newcomers'
+    | '/'
+    | '/auth'
+    | '/clubs'
+    | '/complaints'
+    | '/lost-found'
+    | '/mess'
+    | '/newcomers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/clubs' | '/complaints' | '/lost-found' | '/mess' | '/newcomers'
+  to:
+    | '/'
+    | '/auth'
+    | '/clubs'
+    | '/complaints'
+    | '/lost-found'
+    | '/mess'
+    | '/newcomers'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/clubs'
     | '/complaints'
     | '/lost-found'
@@ -90,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   ClubsRoute: typeof ClubsRoute
   ComplaintsRoute: typeof ComplaintsRoute
   LostFoundRoute: typeof LostFoundRoute
@@ -104,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clubs': {
@@ -146,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   ClubsRoute: ClubsRoute,
   ComplaintsRoute: ComplaintsRoute,
   LostFoundRoute: LostFoundRoute,

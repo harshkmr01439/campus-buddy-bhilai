@@ -10,8 +10,10 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import { FileText } from "lucide-react";
+import { FileText, LogIn, LogOut } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -136,6 +138,19 @@ const NAV = [
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const { user, signedIn } = useAuth();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      router.invalidate();
+      if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
+    });
+    return () => subscription.unsubscribe();
+  }, [router, queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -153,7 +168,7 @@ function RootComponent() {
                 </p>
               </div>
             </Link>
-            <nav className="mt-4 flex gap-1 overflow-x-auto">
+            <nav className="mt-4 flex items-center gap-1 overflow-x-auto">
               {NAV.map((n) => (
                 <Link
                   key={n.to}
@@ -165,6 +180,28 @@ function RootComponent() {
                   {n.label}
                 </Link>
               ))}
+              <div className="ml-auto flex items-center gap-2 pl-2">
+                {signedIn ? (
+                  <>
+                    <span className="hidden max-w-40 truncate text-xs text-muted-foreground sm:inline">
+                      {user?.email}
+                    </span>
+                    <button
+                      onClick={() => supabase.auth.signOut()}
+                      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-secondary"
+                    >
+                      <LogOut className="h-3.5 w-3.5" /> Sign out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                  >
+                    <LogIn className="h-3.5 w-3.5" /> Sign in
+                  </Link>
+                )}
+              </div>
             </nav>
           </div>
         </header>

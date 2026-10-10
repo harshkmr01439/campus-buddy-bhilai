@@ -1,8 +1,47 @@
 import { useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, Plus, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Loader2, Lock, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+
+export function SignInCta({ action }: { action: string }) {
+  return (
+    <div className="inline-flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3">
+      <Lock className="h-4 w-4 text-muted-foreground" />
+      <span className="text-sm text-muted-foreground">Sign in to {action}.</span>
+      <Link
+        to="/auth"
+        className="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+      >
+        Sign in
+      </Link>
+    </div>
+  );
+}
+
+export function AuthGate({ children, message }: { children?: ReactNode; message: string }) {
+  const { signedIn, loading } = useAuth();
+  if (loading)
+    return <Loader2 className="mx-auto mt-10 h-6 w-6 animate-spin text-muted-foreground" />;
+  if (!signedIn)
+    return (
+      <div className="flex flex-col items-center gap-4 py-16 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground">
+          <Lock className="h-6 w-6" />
+        </div>
+        <p className="max-w-sm text-muted-foreground">{message}</p>
+        <Link
+          to="/auth"
+          className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+        >
+          Sign in to continue
+        </Link>
+      </div>
+    );
+  return <>{children}</>;
+}
 
 export type TableName =
   | "lost_found"
@@ -25,9 +64,10 @@ export interface Field {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Row = any;
 
-export function useBoardRows(table: TableName, orderBy = "created_at", ascending = false) {
+export function useBoardRows(table: TableName, orderBy = "created_at", ascending = false, enabled = true) {
   return useQuery({
     queryKey: ["board", table],
+    enabled,
     queryFn: async () => {
       const { data, error } = await supabase
         .from(table)
@@ -43,12 +83,15 @@ export function PostForm({
   table,
   fields,
   buttonLabel,
+  requiresAuth = false,
 }: {
   table: TableName;
   fields: Field[];
   buttonLabel: string;
+  requiresAuth?: boolean;
 }) {
   const qc = useQueryClient();
+  const { signedIn, loading: authLoading } = useAuth();
   const initial = Object.fromEntries(
     fields.map((f) => [f.name, f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]),
   );
@@ -76,6 +119,10 @@ export function PostForm({
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not post"),
   });
+
+  if (requiresAuth && !authLoading && !signedIn) {
+    return <SignInCta action={buttonLabel.toLowerCase()} />;
+  }
 
   if (!open) {
     return (
