@@ -51,6 +51,7 @@ export type Database = {
           created_at: string
           description: string
           id: string
+          leader: string
           name: string
         }
         Insert: {
@@ -59,6 +60,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          leader?: string
           name: string
         }
         Update: {
@@ -67,6 +69,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          leader?: string
           name?: string
         }
         Relationships: []
@@ -191,6 +194,42 @@ export type Database = {
           link?: string
           posted_by?: string
           title?: string
+        }
+        Relationships: []
+      }
+      pyqs: {
+        Row: {
+          created_at: string
+          exam: string
+          file_url: string
+          id: string
+          posted_by: string
+          style_notes: string
+          subject: string
+          teacher: string
+          year: string
+        }
+        Insert: {
+          created_at?: string
+          exam?: string
+          file_url?: string
+          id?: string
+          posted_by?: string
+          style_notes?: string
+          subject: string
+          teacher: string
+          year?: string
+        }
+        Update: {
+          created_at?: string
+          exam?: string
+          file_url?: string
+          id?: string
+          posted_by?: string
+          style_notes?: string
+          subject?: string
+          teacher?: string
+          year?: string
         }
         Relationships: []
       }

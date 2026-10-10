@@ -8,6 +8,13 @@
       "when": 1791621069200,
       "tag": "0000_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791624390828,
+      "tag": "0001_pyqs_and_club_leaders",
+      "breakpoints": true
     }
   ]
 }
