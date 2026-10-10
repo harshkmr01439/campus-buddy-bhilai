@@ -23,7 +23,7 @@ export interface Field {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Row = Record<string, any>;
+export type Row = any;
 
 export function useBoardRows(table: TableName, orderBy = "created_at", ascending = false) {
   return useQuery({
