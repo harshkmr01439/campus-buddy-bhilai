@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClubsRouteImport } from './routes/clubs'
+import { Route as ComplaintsRouteImport } from './routes/complaints'
+import { Route as LostFoundRouteImport } from './routes/lost-found'
+import { Route as MessRouteImport } from './routes/mess'
+import { Route as NewcomersRouteImport } from './routes/newcomers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClubsRoute = ClubsRouteImport.update({
+  id: '/clubs',
+  path: '/clubs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComplaintsRoute = ComplaintsRouteImport.update({
+  id: '/complaints',
+  path: '/complaints',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LostFoundRoute = LostFoundRouteImport.update({
+  id: '/lost-found',
+  path: '/lost-found',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessRoute = MessRouteImport.update({
+  id: '/mess',
+  path: '/mess',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewcomersRoute = NewcomersRouteImport.update({
+  id: '/newcomers',
+  path: '/newcomers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/clubs': typeof ClubsRoute
+  '/complaints': typeof ComplaintsRoute
+  '/lost-found': typeof LostFoundRoute
+  '/mess': typeof MessRoute
+  '/newcomers': typeof NewcomersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/clubs': typeof ClubsRoute
+  '/complaints': typeof ComplaintsRoute
+  '/lost-found': typeof LostFoundRoute
+  '/mess': typeof MessRoute
+  '/newcomers': typeof NewcomersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/clubs': typeof ClubsRoute
+  '/complaints': typeof ComplaintsRoute
+  '/lost-found': typeof LostFoundRoute
+  '/mess': typeof MessRoute
+  '/newcomers': typeof NewcomersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/clubs' | '/complaints' | '/lost-found' | '/mess' | '/newcomers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/clubs' | '/complaints' | '/lost-found' | '/mess' | '/newcomers'
+  id:
+    | '__root__'
+    | '/'
+    | '/clubs'
+    | '/complaints'
+    | '/lost-found'
+    | '/mess'
+    | '/newcomers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClubsRoute: typeof ClubsRoute
+  ComplaintsRoute: typeof ComplaintsRoute
+  LostFoundRoute: typeof LostFoundRoute
+  MessRoute: typeof MessRoute
+  NewcomersRoute: typeof NewcomersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clubs': {
+      id: '/clubs'
+      path: '/clubs'
+      fullPath: '/clubs'
+      preLoaderRoute: typeof ClubsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/complaints': {
+      id: '/complaints'
+      path: '/complaints'
+      fullPath: '/complaints'
+      preLoaderRoute: typeof ComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lost-found': {
+      id: '/lost-found'
+      path: '/lost-found'
+      fullPath: '/lost-found'
+      preLoaderRoute: typeof LostFoundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mess': {
+      id: '/mess'
+      path: '/mess'
+      fullPath: '/mess'
+      preLoaderRoute: typeof MessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newcomers': {
+      id: '/newcomers'
+      path: '/newcomers'
+      fullPath: '/newcomers'
+      preLoaderRoute: typeof NewcomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClubsRoute: ClubsRoute,
+  ComplaintsRoute: ComplaintsRoute,
+  LostFoundRoute: LostFoundRoute,
+  MessRoute: MessRoute,
+  NewcomersRoute: NewcomersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
