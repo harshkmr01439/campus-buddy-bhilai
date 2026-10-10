@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { FileText } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -78,14 +80,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "CampusBuddy" },
+      { name: "description", content: "An AI helper that keeps students up to date with notices, timetables and circulars" },
+      { property: "og:title", content: "CampusBuddy" },
+      { property: "og:description", content: "An AI helper that keeps students up to date with notices, timetables and circulars" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       {
@@ -125,13 +125,57 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const NAV = [
+  { to: "/", label: "Notices" },
+  { to: "/lost-found", label: "Lost & Found" },
+  { to: "/mess", label: "Mess Menu" },
+  { to: "/complaints", label: "Complaints" },
+  { to: "/clubs", label: "Clubs & Events" },
+  { to: "/newcomers", label: "Newcomers" },
+] as const;
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="paper-texture flex min-h-screen flex-col">
+        <header className="border-b border-border bg-card/80 backdrop-blur">
+          <div className="mx-auto max-w-5xl px-6 py-4">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <FileText className="h-5 w-5" />
+              </div>
+              <div>
+                <h1 className="text-lg font-semibold leading-tight">CampusBuddy</h1>
+                <p className="text-xs text-muted-foreground">
+                  An AI helper that keeps students up to date with notices, timetables and circulars
+                </p>
+              </div>
+            </Link>
+            <nav className="mt-4 flex gap-1 overflow-x-auto">
+              {NAV.map((n) => (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  activeOptions={{ exact: true }}
+                  className="whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-secondary"
+                  activeProps={{ className: "bg-primary text-primary-foreground hover:bg-primary" }}
+                >
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </header>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+          <Outlet />
+        </main>
+        <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
+          OpenLake × MLH Hack Day - IIT Bhilai - Build with Gemma 4
+        </footer>
+      </div>
+      <Toaster />
     </QueryClientProvider>
   );
 }
