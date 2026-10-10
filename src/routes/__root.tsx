@@ -168,7 +168,7 @@ function RootComponent() {
                 </p>
               </div>
             </Link>
-            <nav className="mt-4 flex gap-1 overflow-x-auto">
+            <nav className="mt-4 flex items-center gap-1 overflow-x-auto">
               {NAV.map((n) => (
                 <Link
                   key={n.to}
@@ -180,6 +180,28 @@ function RootComponent() {
                   {n.label}
                 </Link>
               ))}
+              <div className="ml-auto flex items-center gap-2 pl-2">
+                {signedIn ? (
+                  <>
+                    <span className="hidden max-w-40 truncate text-xs text-muted-foreground sm:inline">
+                      {user?.email}
+                    </span>
+                    <button
+                      onClick={() => supabase.auth.signOut()}
+                      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-secondary"
+                    >
+                      <LogOut className="h-3.5 w-3.5" /> Sign out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                  >
+                    <LogIn className="h-3.5 w-3.5" /> Sign in
+                  </Link>
+                )}
+              </div>
             </nav>
           </div>
         </header>
