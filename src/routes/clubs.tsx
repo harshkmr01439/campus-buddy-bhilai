@@ -24,10 +24,11 @@ function Page() {
 
   return (
     <>
-      <PageIntro title="Upcoming Club Events" subtitle="Don't miss what's happening on campus. Anyone can add an event.">
+      <PageIntro title="Upcoming Club Events" subtitle="Don't miss what's happening on campus. Sign in to add an event.">
         <PostForm
           table="club_events"
           buttonLabel="Add an event"
+          requiresAuth
           fields={[
             { name: "club_name", label: "Club", required: true, max: 80 },
             { name: "title", label: "Event title", required: true, max: 150 },
@@ -56,10 +57,11 @@ function Page() {
       />
 
       <div className="mt-14">
-        <PageIntro title="Clubs" subtitle="Find your people. Add your club if it's missing.">
+        <PageIntro title="Clubs" subtitle="Find your people. Sign in to add your club if it's missing.">
           <PostForm
             table="clubs"
             buttonLabel="Add a club"
+            requiresAuth
             fields={[
               { name: "name", label: "Club name", required: true, max: 80 },
               { name: "category", label: "Category", type: "select", options: ["Technical", "Cultural", "Sports", "Literary", "General"].map((c) => ({ value: c, label: c })) },

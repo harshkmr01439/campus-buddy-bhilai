@@ -20,10 +20,11 @@ function Page() {
   const q = useBoardRows("lost_found");
   return (
     <>
-      <PageIntro title="Lost & Found" subtitle="Lost something or found something? Post it here — anyone can add an item.">
+      <PageIntro title="Lost & Found" subtitle="Lost something or found something? Post it here — sign in to add an item.">
         <PostForm
           table="lost_found"
           buttonLabel="Add lost / found item"
+          requiresAuth
           fields={[
             { name: "kind", label: "Type", type: "select", options: [{ value: "lost", label: "I lost it" }, { value: "found", label: "I found it" }] },
             { name: "item", label: "Item", required: true, max: 120, placeholder: "e.g. Black water bottle" },
