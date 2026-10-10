@@ -119,6 +119,10 @@ export function PostForm({
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not post"),
   });
 
+  if (requiresAuth && !authLoading && !signedIn) {
+    return <SignInCta action={buttonLabel.toLowerCase()} />;
+  }
+
   if (!open) {
     return (
       <button
