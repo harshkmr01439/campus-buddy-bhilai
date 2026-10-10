@@ -21,13 +21,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Noticeboard AI — Read notices, timetables & circulars" },
+      { title: "CampusBuddy — Notices, timetables and circulars" },
       {
         name: "description",
         content:
-          "Upload PDF notices, timetables and circulars. Noticeboard AI extracts the key dates, deadlines and action items into a clean summary.",
+          "Upload PDF notices, timetables and circulars. CampusBuddy extracts the key dates, deadlines and action items into a clean summary.",
       },
-      { property: "og:title", content: "Noticeboard AI" },
+      { property: "og:title", content: "CampusBuddy" },
       {
         property: "og:description",
         content:
@@ -96,29 +96,13 @@ function Index() {
   };
 
   return (
-    <div className="paper-texture min-h-screen">
-      <header className="border-b border-border bg-card/80 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center gap-3 px-6 py-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <FileText className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-lg font-semibold leading-tight">Noticeboard AI</h1>
-            <p className="text-xs text-muted-foreground">
-              Notices · Timetables · Circulars, read for you
-            </p>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-4xl px-6 py-10">
+    <div>
         <section className="text-center">
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Stop squinting at notice boards.
+            Notices are everywhere, and easy to miss.
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Drop in a PDF and get the important bits — dates, deadlines and what
-            you actually need to do — in seconds.
+            CampusBuddy reads notices, timetables and circulars, and tells students only what matters to them.
           </p>
         </section>
 
@@ -289,11 +273,6 @@ function Index() {
             </div>
           </section>
         )}
-      </main>
-
-      <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        Built at Hacktoberfest — never miss a deadline again.
-      </footer>
     </div>
   );
 }
