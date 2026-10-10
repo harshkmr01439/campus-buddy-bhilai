@@ -5,7 +5,6 @@ import {
   CalendarDays,
   CalendarClock,
   CheckSquare,
-  FileText,
   FileUp,
   Loader2,
   MailOpen,
