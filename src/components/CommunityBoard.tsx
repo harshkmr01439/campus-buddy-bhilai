@@ -64,9 +64,10 @@ export interface Field {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Row = any;
 
-export function useBoardRows(table: TableName, orderBy = "created_at", ascending = false) {
+export function useBoardRows(table: TableName, orderBy = "created_at", ascending = false, enabled = true) {
   return useQuery({
     queryKey: ["board", table],
+    enabled,
     queryFn: async () => {
       const { data, error } = await supabase
         .from(table)
