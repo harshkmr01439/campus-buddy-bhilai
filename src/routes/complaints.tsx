@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Badge, BoardList, Card, PageIntro, PostForm, timeAgo, useBoardRows } from "@/components/CommunityBoard";
+import { AuthGate, Badge, BoardList, Card, PageIntro, PostForm, timeAgo, useBoardRows } from "@/components/CommunityBoard";
+import { useAuth } from "@/hooks/useAuth";
 
 const CATS = ["Mess", "Hostel", "Academics", "Wi-Fi", "Transport", "General"];
 
