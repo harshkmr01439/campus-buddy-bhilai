@@ -14,7 +14,186 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      club_events: {
+        Row: {
+          club_name: string
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          title: string
+          venue: string
+        }
+        Insert: {
+          club_name: string
+          created_at?: string
+          description?: string
+          event_date: string
+          id?: string
+          title: string
+          venue?: string
+        }
+        Update: {
+          club_name?: string
+          created_at?: string
+          description?: string
+          event_date?: string
+          id?: string
+          title?: string
+          venue?: string
+        }
+        Relationships: []
+      }
+      clubs: {
+        Row: {
+          category: string
+          contact: string
+          created_at: string
+          description: string
+          id: string
+          name: string
+        }
+        Insert: {
+          category?: string
+          contact?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          category?: string
+          contact?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      complaints: {
+        Row: {
+          category: string
+          created_at: string
+          details: string
+          id: string
+          kind: string
+          posted_by: string
+          subject: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          details: string
+          id?: string
+          kind: string
+          posted_by?: string
+          subject: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          details?: string
+          id?: string
+          kind?: string
+          posted_by?: string
+          subject?: string
+        }
+        Relationships: []
+      }
+      lost_found: {
+        Row: {
+          contact: string
+          created_at: string
+          description: string
+          id: string
+          item: string
+          kind: string
+          location: string
+          posted_by: string
+        }
+        Insert: {
+          contact: string
+          created_at?: string
+          description?: string
+          id?: string
+          item: string
+          kind: string
+          location?: string
+          posted_by?: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string
+          description?: string
+          id?: string
+          item?: string
+          kind?: string
+          location?: string
+          posted_by?: string
+        }
+        Relationships: []
+      }
+      mess_menu: {
+        Row: {
+          created_at: string
+          day: string
+          id: string
+          items: string
+          meal: string
+          posted_by: string
+          timing: string
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          id?: string
+          items: string
+          meal: string
+          posted_by?: string
+          timing?: string
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          id?: string
+          items?: string
+          meal?: string
+          posted_by?: string
+          timing?: string
+        }
+        Relationships: []
+      }
+      newcomer_tips: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          kind: string
+          link: string
+          posted_by: string
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          kind: string
+          link?: string
+          posted_by?: string
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          link?: string
+          posted_by?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
