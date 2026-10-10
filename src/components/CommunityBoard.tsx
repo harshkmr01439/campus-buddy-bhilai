@@ -50,7 +50,7 @@ export function PostForm({
 }) {
   const qc = useQueryClient();
   const initial = Object.fromEntries(
-    fields.map((f) => [f.name, f.type === "select" ? f.options![0].value : ""]),
+    fields.map((f) => [f.name, f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]),
   );
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<Record<string, string>>(initial);
