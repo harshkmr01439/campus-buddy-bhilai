@@ -1,7 +1,5 @@
 # Campus Buddy Bhilai
 
-hi i am at hactoberfest and problem is given that i have to build a tool that that reads notices,timetable and circulators
-
 This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://campus-buddy-bhilai.lovable.app
