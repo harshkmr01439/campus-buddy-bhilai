@@ -1,0 +1,1 @@
+CREATE POLICY "Anyone can read pyq files" ON storage.objects FOR SELECT TO anon, authenticated USING (bucket_id = 'pyqs');
